@@ -15,7 +15,7 @@ const server = http
       res.write("Welcome to Users list page");
       res.end();
     } else {
-      res.write("Api Not Found");
+      res.write(` ${req.url} Api Not Found`);
       res.end();
     }
   })
