@@ -1,0 +1,6 @@
+users = {
+    "Person1" : "Omid"
+    "Person2" : "Ali"
+    "Person3" : "Ahmad"
+    "Person4" : "Farhad"
+}
