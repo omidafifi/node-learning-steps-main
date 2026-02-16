@@ -1,4 +1,5 @@
 const http = require("http");
+const { stringify } = require("querystring");
 const PORT = 3000;
 const server = http
   .createServer((req, res) => {
@@ -17,12 +18,19 @@ const server = http
           },
         ]),
       );
+      //CRUD Creat (C) Read (R) Update(U) Delete(D)
       res.end();
     } else if (req.method === "GET" && req.url === "/posts") {
       res.write("Welcome to Posts page");
       res.end();
     } else if (req.method === "GET" && req.url === "/books") {
       res.write("Welcome to Books page");
+      res.end();
+    } else if (req.method === "POST" && req.url === "/books") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(
+        JSON.stringify([{ message: "New Books created Successfully" }]),
+      );
       res.end();
     } else if (req.method === "GET" && req.url === "/users") {
       res.write("Welcome to Users list page");
