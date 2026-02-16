@@ -2,8 +2,21 @@ const http = require("http");
 const PORT = 3000;
 const server = http
   .createServer((req, res) => {
+    // console.log(req.method);
+    // console.log(req.url);
     if (req.method === "GET" && req.url === "/") {
-      res.write("Welcome to my first nodeJs server");
+      // res.write("Welcome to my first nodeJs server");
+      // res.end();
+      res.write(
+        JSON.stringify([
+          {
+            id: 1,
+            firstName: "omidrzaf",
+            lastName: "Afifi",
+            age: 35,
+          },
+        ]),
+      );
       res.end();
     } else if (req.method === "GET" && req.url === "/posts") {
       res.write("Welcome to Posts page");
