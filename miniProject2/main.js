@@ -4,10 +4,11 @@ fs.readFile("inventory.txt", "utf-8", (err, data) => {
     throw err;
   }
   const db = JSON.parse(data);
+  const newBook = { id: 4, title: "Masanbavi" };
+
   console.log(db);
 });
 
-// const newBook = { id: 4, title: "Masanbavi" };
 // const PORT = 3000;
 // const http = require(`http`);
 // const server = http
