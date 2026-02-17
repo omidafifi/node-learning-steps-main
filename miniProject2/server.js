@@ -8,7 +8,7 @@ const server = http
     if (req.method === "GET" && req.url === "/") {
       // res.write("Welcome to my first nodeJs server");
       // res.end();
-      res.write(
+       res.write(
         JSON.stringify([
           {
             id: 1,
