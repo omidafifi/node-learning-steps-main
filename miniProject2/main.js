@@ -1,11 +1,13 @@
 const fs = require("fs");
+const newBook = { id: 4, title: "Masanbavi" };
 fs.readFile("inventory.txt", "utf-8", (err, data) => {
   if (err) {
     throw err;
   }
-  console.log(JSON.parse(data));
+  console.log(data);
 });
 
+// flag "a"   /n
 
 // const PORT = 3000;
 // const http = require(`http`);
