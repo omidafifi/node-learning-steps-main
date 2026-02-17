@@ -5,18 +5,12 @@ fs.readFile("inventory.txt", "utf-8", (err, data) => {
   }
   const db = JSON.parse(data);
   const newBook = { id: 4, title: "Masanbavi" };
-
+  db.Books.push(newBook);
   console.log(db);
+  fs.writeFile("inventory.txt", JSON.stringify(db), (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log("New books added in our history :");
+  });
 });
-
-// const PORT = 3000;
-// const http = require(`http`);
-// const server = http
-//   .createServer((req, res) => {
-//     res.writeHead(200, { "Content-Type": "application/json" });
-//     res.write.res.end();
-//   })
-
-//   .listen(`${PORT}`, () => {
-//     console.log(`Server run on Port ${PORT}`);
-//   });
