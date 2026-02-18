@@ -5,6 +5,7 @@ fs.readFile("inventory.txt", "utf-8", (error, data) => {
   }
   const db = JSON.parse(data);
   const newBook = { id: 4, title: "Masnavi" };
+  const exist = db.Books.some((book) => book.id === newBook.id);
   db.Books.push(newBook);
   console.log(db);
   fs.writeFile("inventory.txt", JSON.stringify(db), (err) => {
