@@ -7,9 +7,10 @@ const server = http.createServer((req, res) => {
       if (err) {
         throw err;
       }
-
-      const parsedDb = JSON.parse(db);
-      console.log(parsedDb.users);
+      const data = JSON.parse(db);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(JSON.stringify(data.users));
+      res.end();
     });
   }
 });
