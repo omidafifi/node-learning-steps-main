@@ -1,0 +1,48 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "omidreza Afifi",
+      "userName": "2280993929",
+      "crime": 0,
+      "roll": "ADMIN"
+    },
+    {
+      "id": "2",
+      "name": "zahra yazdanpanahi",
+      "userName": "2280993910",
+      "crime": 0,
+      "roll": "ADMIN"
+    },
+    {
+      "id": "3",
+      "name": "Mohammad Aghamohammadi",
+      "userName": "2281245987",
+      "crime": 0,
+      "roll": "USER"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "title": "Golestan",
+      "autor": "saadi",
+      "price": "230000",
+      "free": 0
+    },
+    {
+      "id": 2,
+      "title": "Boostan",
+      "autor": "saadi",
+      "price": "695000",
+      "free": 0
+    },
+    {
+      "id": 3,
+      "title": "Shahname",
+      "autor": "Ferdosi",
+      "price": "458000",
+      "free": 1
+    }
+  ]
+}
