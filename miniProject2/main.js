@@ -4,13 +4,13 @@ fs.readFile("inventory.txt", (err, data) => {
     throw err;
   }
   const db = JSON.parse(data);
-  console.log(db);
-  const newBook = { id: 5, title: "Ashare babataher" };
+  const newBook = { id: 5, title: "Samfoni Mordegan" };
   db.Books.push(newBook);
+  console.log(db);
   fs.writeFile("inventory.txt", JSON.stringify(db), (err) => {
     if (err) {
       throw err;
     }
-    console.log("file addes successfully");
+    console.log("new Book added");
   });
 });
