@@ -1,5 +1,6 @@
 const http = require("http");
 const fs = require("fs");
+const dataBase = require("./db.json");
 
 const server = http.createServer((req, res) => {
   if (req.method === "GET" && req.url === `/api/users`) {
