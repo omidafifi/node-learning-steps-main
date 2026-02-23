@@ -22,6 +22,16 @@ const server = http.createServer((req, res) => {
       res.write(JSON.stringify(data.books));
       res.end();
     });
+  } else if (req.method === "POST" && req.url === `/api/Admin/MakeAdmin`) {
+    fs.readFile("db.json", "utf-8", (err, db) => {
+      if (err) {
+        throw err;
+      }
+      const data = JSON.parse(db);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(JSON.stringify(data.books));
+      res.end();
+    });
   }
 });
 
