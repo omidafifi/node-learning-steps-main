@@ -1,6 +1,7 @@
 const product_model = require("../models/Product");
 
-async function name(params) {
-    
+async function getProductController(req, res) {
+  try {
+    const products = await product_model.find();
+  } catch (error) {}
 }
-
