@@ -3,8 +3,8 @@ const PORT = 3000;
 const products = require("./products");
 const server = http
   .createServer((req, res) => {
-    if (req.url === "/api/products" && req.method === "GET") {
-      res.writeHead(200, { "content-type": "application/json" });
+    if (req.url === "/api/products" && req.method === "GET") { // مسیر درخواست کاربر (URL)
+      res.writeHead(200, { "content-type": "application/json" }); // برای ارسال یک پاسخ متنی به مرورگر 
       res.end(JSON.stringify(products));
     } else {
       res.writeHead(404, { "content-type": "application/json" });
