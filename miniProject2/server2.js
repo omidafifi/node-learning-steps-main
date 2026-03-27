@@ -27,8 +27,5 @@ server.listen(PORT, () => {
   console.log(`Server run on Port ${PORT}`);
 });
 
-
-
-// res.end({ message: "Hi Omid" });
 // res.writeHead(200, { "Content-Type": "application/json" });
 // res.end(JSON.stringify(products));
