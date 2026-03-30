@@ -1,12 +1,17 @@
-// Model = مدیریت داده‌ها
+const products = require("../products.json"); 
 
-// شامل:
+async function find() {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(products);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 
-// خواندن داده‌ها
-// ذخیره‌سازی
-// جستجو
-// حذف
-// ویرایش
-// ارتباط با دیتابیس یا فایل
+const ProductModel = {
+  find,
+};
 
-
+module.exports = ProductModel;
