@@ -1,12 +1,10 @@
-const products = require("../products.json"); 
+const products = require("../products.json");
 
 async function find() {
   return new Promise((resolve, reject) => {
     try {
       resolve(products);
-    } catch (error) {
-      reject(error);
-    }
+    } catch (error) {}
   });
 }
 

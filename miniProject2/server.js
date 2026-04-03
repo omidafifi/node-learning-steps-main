@@ -1,45 +1,23 @@
 const http = require("http");
-const fs = require("fs");
 const PORT = 3000;
+const products = require("./products.json");
+const ProductsController = require("./controllers/product.controller");
+const ErrorHandler = require("./controllers/errorHandler.controller");
 
 const server = http.createServer((req, res) => {
-  if (req.url === "/") {
+  if (req.url === "/api/products") {
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Home Page" }));
-  } else if (req.url === "/products") {
-    fs.readFile("./products.json", "utf8", (err, data) => {
-      if (err) {
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ message: "Server Error" }));
-        return;
-      }
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(data);
-    });
+    res.write(JSON.stringify(products));
+    res.end();
+  } else if (req.url.match(/\/api\/product\/[0-9]+/)) {
+    res.end(req.url.split("/").join("   "));
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Not Found" }));
+    res.write(JSON.stringify({ message: "Route Not Found" }));
+    res.end();
   }
 });
 
 server.listen(PORT, () => {
   console.log(`Server run on Port ${PORT}`);
 });
-
-// res.writeHead(200, { "Content-Type": "application/json" });
-// res.end(JSON.stringify(products));
-  // .createServer((req, res) => {
-  //   if (req.url === "/api/products" && req.method === "GET") { // مسیر درخواست کاربر (URL)
-  //     res.writeHead(200, { "content-type": "application/json" }); // برای ارسال یک پاسخ متنی به مرورگر 
-  //     res.end(JSON.stringify(products));
-  //   } else {
-  //     res.writeHead(404, { "content-type": "application/json" });
-  //     res.end(JSON.stringify({ message: "Rout not Found" }));
-  //   }
-  // })
-  // .listen(`${PORT}`, () => {
-  //   console.log(`Server run on Port ${PORT}`);
-  // });
-
-  
