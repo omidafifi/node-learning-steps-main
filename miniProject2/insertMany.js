@@ -7,12 +7,20 @@ async function main() {
   console.log("connected to mongodb");
   const db = client.db(DB_name);
   const userCollection = db.collection("user");
-  const result = await userCollection.insertOne({
-    firstName: "omidreza",
-    lastName: "afifi",
-    age: 34,
-    skills: ["HTML", "CSS", "JAVASCRIPT", "NodeJs"],
-  });
+  const result = await userCollection.insertMany([
+    {
+      firstName: "omidreza",
+      lastName: "afifi",
+      age: 34,
+      skills: ["HTML", "CSS", "JAVASCRIPT", "NodeJs"],
+    },
+    {
+      firstName: "Zahra",
+      lastName: "Yazdanpanahi",
+      age: 30,
+      skills: ["Matemathik", "Englisch", "Deutsch"],
+    },
+  ]);
   userCollection
     .find({})
     .toArray()

@@ -4,12 +4,26 @@ async function find() {
   return new Promise((resolve, reject) => {
     try {
       resolve(products);
-    } catch (error) {}
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+async function findById(id) {
+  return new Promise((resolve, reject) => {
+    try {
+      const product = products.find((product) => product.id == id);
+      resolve(product);
+    } catch (error) {
+      reject(error);
+    }
   });
 }
 
 const ProductModel = {
   find,
+  findById,
 };
 
 module.exports = ProductModel;
