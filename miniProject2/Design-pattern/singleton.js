@@ -3,7 +3,7 @@ const { MongoClient } = require("mongodb");
 class connectToMongoDB {
   #DB_URL = "mongodb://localhost:27017/mongodb-toturials";
   #db = null;
-  async connect() {
+  async #connect() {
     try {
       let client = new MongoClient(this.#DB_URL);
       let db = client.db();
@@ -14,8 +14,23 @@ class connectToMongoDB {
   }
   async Get() {
     try {
+      if (this.#db) {
+        console.log("db connection is already alive");
+        return this.db;
+      }
+      this.#db = await this.#connect();
+      return this.#db;
     } catch (error) {
       console.log(error.message);
     }
   }
 }
+
+module.exports = class connectToMongoDB {};
+
+async function main() {
+  const db = await new connectToMongoDB().Get();
+  const users = await db.collection("user").find({}).toArray();
+  console.log(users);
+}
+main();
