@@ -61,7 +61,39 @@ app.get("/users/:id", (req, res) => {
     res.status(200).send(user);
   }
 });
-//test api protocol://hostname:port/path http://localhost:3000/users
+// app.get("/products/:id?", (req, res) => {
+//   const { id } = req.params;
+
+//   // اگر id فرستاده شده بود
+//   if (id) {
+//     const product = products.find((p) => p.id == id); // هم id string را قبول می‌کند هم number را
+
+//     if (!product) {
+//       return res.status(404).json({
+//         success: false,
+//         status: 404,
+//         message: "Product not found",
+//         data: null,
+//       });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       status: 200,
+//       message: "Product fetched successfully",
+//       data: product,
+//     });
+//   }
+
+//   // اگر id نبود، لیست کامل محصولات
+//   return res.status(200).json({
+//     success: true,
+//     status: 200,
+//     message: "All products fetched successfully",
+//     data: products,
+//   });
+// });
+
 // app.get("/users", (req, res) => {
 //   res
 //     .status(200)
@@ -97,22 +129,34 @@ app.get("/users/:id", (req, res) => {
 //     return res.status(200).send(product);
 //   }
 // });
-app.get("/products/:id", (req, res) => {
-  const { id } = req.params;
+// app.get("/products/:id", (req, res) => {
+//   const { id } = req.params;
 
-  const product = products.find((p) => p.id === id);
+//   const product = products.find((p) => p.id === id);
 
-  if (!product) {
-    return res.status(404).send({
-      statusCode: res.statusCode,
-      error: { message: "Product not found" },
-    });
-  }
+//   if (!product) {
+//     return res.status(404).send({
+//       statusCode: res.statusCode,
+//       error: { message: "Product not found" },
+//     });
+//   }
 
-  return res.status(200).send({
-    data: product,
-  });
-});
+//   return res.status(200).send({
+//     data: product,
+//   });
+// });
+// app.get("/products/:id/:versions/:userName", (req, res) => { //این قسمت تمرین روی قسمت گرفتن چندین Params
+//   res.status(400).send({
+//     // statusCode: res.status.statusCode,
+//     // statusCode: res.status,
+//     // statusCode: res.statusCode, //or
+//     statusCode: 400,
+//     // data: res.send(req.params),
+//     // data: { req.params},
+//     message : "Bad request" ,
+//     data: req.params,
+//   });
+// });
 app.listen(3000, () => {
   console.log("server run on port 3000");
 });
