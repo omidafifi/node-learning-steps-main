@@ -81,6 +81,7 @@ app.get("/users/:id", (req, res) => {
 
 // app.get("/products/:id", (req, res) => {
 //   // const {id} = id.params; //چرا داره یادم میره logicesh ؟؟؟ غلط گفنی چون reqیادت رفته بود  و هیچ وقت دو نا id = id پیش هم قرار نمیگیرن داداش
+// const id = req.params.id;
 //   const { id } = req.params;
 //   // const productsId = products.find((id) => products.id == id);
 //   // const product = products.find((id) => product.id == id);
@@ -102,13 +103,16 @@ app.get("/products/:id", (req, res) => {
   const product = products.find((p) => p.id === id);
 
   if (!product) {
-    return res.status(404).send({ message: "Product not found" });
+    return res.status(404).send({
+      statusCode: res.statusCode,
+      error: { message: "Product not found" },
+    });
   }
 
-  return res.status(200).send(product);
+  return res.status(200).send({
+    data: product,
+  });
 });
 app.listen(3000, () => {
   console.log("server run on port 3000");
 });
-
-
