@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+
+app.use(express.json());
+
 const products = [
   {
     id: "1",
@@ -37,126 +40,91 @@ const products = [
     price: 49.99,
   },
 ];
+
 const users = [
   { id: 1, name: "user1" },
   { id: 2, name: "user2" },
   { id: 3, name: "user3" },
 ];
+
+// ==============================
+//        HOME ROUTE
+// ==============================
 app.get("/", (req, res) => {
-  console.log("welcome to first step");
   res.status(200).send({ message: "Alles Gute" });
 });
-app.get("/users/:id", (req, res) => {
-  // const userId = id == users.id; // اینم غلط بود
-  const { id } = req.params; // params و {id} یادم نبود اصلا
-  const user = users.find((user) => user.id == id); //این رو اصلا  نتونستم
-  // if (userId == id) {
-  // res.status(200).send(userId); ==>false
-  // } else {
-  //  res.status(404).send({ message: "Not found user" });
-  // }
-  if (!user) {
-    res.status(404).send({ message: "Not found user" }); // Rout Not Found ==false
-  } else {
-    res.status(200).send(user);
-  }
+
+// ==============================
+//         USERS ROUTES
+// ==============================
+app.get("/users", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "List of users",
+    data: users,
+  });
 });
-// app.get("/products/:id?", (req, res) => {
-//   const { id } = req.params;
 
-//   // اگر id فرستاده شده بود
-//   if (id) {
-//     const product = products.find((p) => p.id == id); // هم id string را قبول می‌کند هم number را
+app.get("/users/:id", (req, res) => {
+  const { id } = req.params;
+  const user = users.find((u) => u.id == id);
 
-//     if (!product) {
-//       return res.status(404).json({
-//         success: false,
-//         status: 404,
-//         message: "Product not found",
-//         data: null,
-//       });
-//     }
+  if (!user) {
+    return res.status(404).send({ message: "User not found" });
+  }
 
-//     return res.status(200).json({
-//       success: true,
-//       status: 200,
-//       message: "Product fetched successfully",
-//       data: product,
-//     });
-//   }
+  return res.status(200).send(user);
+});
 
-//   // اگر id نبود، لیست کامل محصولات
-//   return res.status(200).json({
-//     success: true,
-//     status: 200,
-//     message: "All products fetched successfully",
-//     data: products,
-//   });
-// });
+// ==============================
+//        PRODUCTS ROUTES
+// ==============================
 
-// app.get("/users", (req, res) => {
-//   res
-//     .status(200)
-//     .json([
-//       {
-//         users: {
-//           id: 1,
-//           name: "user1",
-//           id: 2,
-//           name: "user2",
-//           id: 3,
-//           name: "user3",
-//         },
-//       },
-//     ]);
-// });
+// GET all products
+app.get("/products", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "All products fetched successfully",
+    data: products,
+  });
+});
 
-// app.get("/products/:id", (req, res) => {
-//   // const {id} = id.params; //چرا داره یادم میره logicesh ؟؟؟ غلط گفنی چون reqیادت رفته بود  و هیچ وقت دو نا id = id پیش هم قرار نمیگیرن داداش
-// const id = req.params.id;
-//   const { id } = req.params;
-//   // const productsId = products.find((id) => products.id == id);
-//   // const product = products.find((id) => product.id == id);
-//   const product = products.find((p) => p.id == p);
+// GET single product
+app.get("/products/:id", (req, res) => {
+  const { id } = req.params;
+  const product = products.find((p) => p.id == id);
 
-//   if (!product) {
-//     // res.send(404).json("Product not found"); status code رو اشتباه کردی
-//     // res.status(404).send.json("Product not found");خراب کردی
-//     // return res.status(404).send({ message: "Not found user" }); //جمله اشتباه هست false
-//     return res.status(404).send({ message: "Product not found" });
-//   } else {
-//     // res.send(200).json(productsId);
-//     return res.status(200).send(product);
-//   }
-// });
-// app.get("/products/:id", (req, res) => {
-//   const { id } = req.params;
+  if (!product) {
+    return res.status(404).json({
+      success: false,
+      status: 404,
+      message: "Product not found",
+      data: null,
+    });
+  }
 
-//   const product = products.find((p) => p.id === id);
+  return res.status(200).json({
+    success: true,
+    status: 200,
+    message: "Product fetched successfully",
+    data: product,
+  });
+});
 
-//   if (!product) {
-//     return res.status(404).send({
-//       statusCode: res.statusCode,
-//       error: { message: "Product not found" },
-//     });
-//   }
+// ==============================
+//  MULTIPLE PARAMS (Practice)
+// ==============================
+app.get("/products/:id/:version/:userName", (req, res) => {
+  res.status(400).json({
+    statusCode: 400,
+    message: "Bad request",
+    params_received: req.params,
+  });
+});
 
-//   return res.status(200).send({
-//     data: product,
-//   });
-// });
-// app.get("/products/:id/:versions/:userName", (req, res) => { //این قسمت تمرین روی قسمت گرفتن چندین Params
-//   res.status(400).send({
-//     // statusCode: res.status.statusCode,
-//     // statusCode: res.status,
-//     // statusCode: res.statusCode, //or
-//     statusCode: 400,
-//     // data: res.send(req.params),
-//     // data: { req.params},
-//     message : "Bad request" ,
-//     data: req.params,
-//   });
-// });
+// ==============================
+//        START SERVER
+// ==============================
 app.listen(3000, () => {
-  console.log("server run on port 3000");
+  console.log("server running on port 3000");
 });
