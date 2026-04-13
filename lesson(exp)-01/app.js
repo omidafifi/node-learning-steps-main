@@ -78,15 +78,37 @@ app.get("/users/:id", (req, res) => {
 //       },
 //     ]);
 // });
-app.get("/products", (req, res) => {
-  res.status(200).json();
+
+// app.get("/products/:id", (req, res) => {
+//   // const {id} = id.params; //چرا داره یادم میره logicesh ؟؟؟ غلط گفنی چون reqیادت رفته بود  و هیچ وقت دو نا id = id پیش هم قرار نمیگیرن داداش
+//   const { id } = req.params;
+//   // const productsId = products.find((id) => products.id == id);
+//   // const product = products.find((id) => product.id == id);
+//   const product = products.find((p) => p.id == p);
+
+//   if (!product) {
+//     // res.send(404).json("Product not found"); status code رو اشتباه کردی
+//     // res.status(404).send.json("Product not found");خراب کردی
+//     // return res.status(404).send({ message: "Not found user" }); //جمله اشتباه هست false
+//     return res.status(404).send({ message: "Product not found" });
+//   } else {
+//     // res.send(200).json(productsId);
+//     return res.status(200).send(product);
+//   }
+// });
+app.get("/products/:id", (req, res) => {
+  const { id } = req.params;
+
+  const product = products.find((p) => p.id === id);
+
+  if (!product) {
+    return res.status(404).send({ message: "Product not found" });
+  }
+
+  return res.status(200).send(product);
 });
 app.listen(3000, () => {
   console.log("server run on port 3000");
 });
 
-// [
-//     { id: 1, name: "products1" },
-//     { id: 2, name: "products2" },
-//     { id: 3, name: "products3" },
-//   ]
+
