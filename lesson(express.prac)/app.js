@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-app.use(express.json()); // پس اینم یک Middleware هستش 
+app.use(express.json()); // پس اینم یک Middleware هستش
 
 const products = [
   {
@@ -101,14 +101,14 @@ app.get("/products/:id", (req, res) => {
       message: "Product not found",
       data: null,
     });
+  } else {
+    return res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Product fetched successfully",
+      data: product,
+    });
   }
-
-  return res.status(200).json({
-    success: true,
-    status: 200,
-    message: "Product fetched successfully",
-    data: product,
-  });
 });
 
 // ==============================
