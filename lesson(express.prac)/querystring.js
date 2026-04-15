@@ -1,30 +1,51 @@
 const express = require("express");
-const app = express();
-const queryString = require("querystring"); //  و آن رو call کنی این رو کلا یادت رفت که یک core module هست
+const querystring = require("querystring"); // ✅ Node.js Core Module
 const posts = require("./post.json");
 
-app.get("/foo/", (req, res) => {
-  console.log(queryString.parse("key=value&ket2=value2&key3=value3"));
-  console.log(
-    queryString.stringify({
-      key: "value",
-      ket2: "value2",
-      key3: "value3",
-      key4: "value4",
-    }),
-  );
-  res.send(req.query);
-});
-//حالا در این قسمت میخوایم یاد بگیریم که جحوری توسط query string ما بریم عملیات سرچ کردن رو انجام بدیم
-app.get("/blogs", (req, res) => {
-  const { description } = req.query; //{description}
-  const regexDescription = new RegExp(description ?? "", "gi");
-  const filter = posts.filter((post) =>
-    post.description.match(regexDescription),
-  );
-  res.send({ posts: filter });
+const app = express();
+
+/* -----------------------------
+   QueryString demo
+------------------------------ */
+app.get("/foo", (req, res) => {
+  // parse → string  ➜  object
+  const parsed = querystring.parse("key=value&key2=value2&key3=value3");
+
+  // stringify → object ➜ string
+  const stringified = querystring.stringify({
+    key: "value",
+    key2: "value2",
+    key3: "value3",
+    key4: "value4",
+  });
+
+  console.log("Parsed:", parsed);
+  console.log("Stringified:", stringified);
+
+  // Express خودش query string رو parse می‌کنه
+  res.status(200).json(req.query);
 });
 
+/* -----------------------------
+   Search with Query String
+   /blogs?description=react
+------------------------------ */
+app.get("/blogs", (req, res) => {
+  const { description = "" } = req.query;
+
+  const regex = new RegExp(description, "i");
+
+  const filteredPosts = posts.filter((post) => regex.test(post.description));
+
+  res.status(200).json({
+    count: filteredPosts.length,
+    posts: filteredPosts,
+  });
+});
+
+/* -----------------------------
+   Server
+------------------------------ */
 app.listen(3000, () => {
-  console.log("server running on port 3000");
+  console.log("✅ Server running on http://localhost:3000");
 });
