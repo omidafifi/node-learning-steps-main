@@ -108,7 +108,7 @@ app.get("/products/:id", (req, res) => {
       message: "Product fetched successfully",
       data: product,
     });
-  }
+  } 
 });
 
 // ==============================
