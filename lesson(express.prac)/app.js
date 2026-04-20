@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
+const morgan = require("morgan");
 
-app.use(express.json()); // پس اینم یک Middleware هستش
+app.use(express.json());
 
 const products = [
   {
@@ -108,7 +109,7 @@ app.get("/products/:id", (req, res) => {
       message: "Product fetched successfully",
       data: product,
     });
-  } 
+  }
 });
 
 // ==============================
@@ -125,6 +126,8 @@ app.get("/products/:id/:version/:userName", (req, res) => {
 // ==============================
 //        START SERVER
 // ==============================
+// app.use(morgan("tiny"));
+app.use(morgan("dev"));
 app.listen(3000, () => {
   console.log("server running on port 3000");
 });
